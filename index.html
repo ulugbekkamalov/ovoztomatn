@@ -3,33 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Ovoz Studiyasi</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #f5f5f5; color: #222; min-height: 100vh; }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1rem; }
-  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .wrap { max-width: 700px; margin: 0 auto; padding: 2rem 1rem; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
   .sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
   .tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
-  .tab { padding: 8px 20px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; background: transparent; color: #666; transition: all .15s; }
-  .tab.active { background: #fff; color: #111; border-color: #999; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .tab { padding: 8px 22px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; background: transparent; color: #666; transition: all .15s; }
+  .tab.active { background: #fff; color: #111; border-color: #999; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
   .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
-  .label { font-size: 11px; color: #888; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-  input[type=text] { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; margin-bottom: 10px; outline: none; }
-  input[type=text]:focus { border-color: #999; }
-  select { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; margin-bottom: 10px; outline: none; }
-  textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; resize: vertical; min-height: 110px; font-family: Arial, sans-serif; outline: none; }
-  textarea:focus, select:focus { border-color: #999; }
+  .label { font-size: 11px; color: #888; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+  input[type=text] { width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; margin-bottom: 10px; outline: none; transition: border .15s; }
+  input[type=text]:focus { border-color: #777; background: #fff; }
+  textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; resize: vertical; min-height: 120px; font-family: Arial, sans-serif; outline: none; transition: border .15s; }
+  textarea:focus { border-color: #777; background: #fff; }
   .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   button { padding: 9px 20px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; background: #fff; color: #222; transition: all .15s; font-family: Arial, sans-serif; }
   button:hover { background: #f0f0f0; }
   button:active { transform: scale(0.98); }
-  .btn-primary { background: #f0f0f0; font-weight: 600; border-color: #bbb; }
+  .btn-primary { background: #222; color: #fff; border-color: #222; font-weight: 700; }
+  .btn-primary:hover { background: #444; }
   .btn-danger { color: #c0392b; border-color: #e0b0b0; }
   .btn-danger:hover { background: #fff0f0; }
   .status { font-size: 13px; color: #888; margin-top: 10px; min-height: 20px; }
-  .status.ok { color: #27ae60; }
-  .status.err { color: #c0392b; }
+  .status.ok { color: #27ae60; font-weight: 600; }
+  .status.err { color: #c0392b; font-weight: 600; }
+  .lang-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .lang-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid #ddd; font-size: 13px; cursor: pointer; background: #f5f5f5; color: #555; transition: all .15s; }
+  .lang-btn:hover { background: #eee; }
+  .lang-btn.active { background: #222; color: #fff; border-color: #222; font-weight: 600; }
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 280px; overflow-y: auto; margin-bottom: 10px; }
+  .voice-card { padding: 10px 12px; border-radius: 8px; border: 1px solid #e0e0e0; cursor: pointer; background: #fafafa; transition: all .15s; }
+  .voice-card:hover { border-color: #bbb; background: #f0f0f0; }
+  .voice-card.selected { border-color: #222; background: #222; color: #fff; }
+  .voice-card.selected .vc-lang { color: #aaa; }
+  .vc-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .vc-lang { font-size: 11px; color: #888; }
+  .vc-gender { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-top: 4px; font-weight: 600; }
+  .male { background: #e8f0fe; color: #1a56a0; }
+  .female { background: #fce8f3; color: #a01a6e; }
+  .voice-card.selected .vc-gender.male { background: #3a6abf; color: #fff; }
+  .voice-card.selected .vc-gender.female { background: #bf3a8f; color: #fff; }
   .voice-count { font-size: 12px; color: #aaa; margin-bottom: 8px; }
   .result-box { background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; font-size: 14px; color: #222; min-height: 60px; line-height: 1.6; white-space: pre-wrap; margin-top: 10px; display: none; }
   .rec-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; margin-right: 6px; animation: pulse 1s infinite; }
@@ -37,18 +56,49 @@
   .panel { display: none; }
   .panel.active { display: block; }
   .range-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .range-row label { font-size: 13px; color: #666; min-width: 60px; }
-  .range-row input { flex: 1; }
-  .range-row span { font-size: 13px; font-weight: 600; min-width: 35px; text-align: right; }
+  .range-row label { font-size: 13px; color: #666; min-width: 70px; }
+  .range-row input[type=range] { flex: 1; }
+  .range-row span { font-size: 13px; font-weight: 700; min-width: 35px; text-align: right; }
+  .no-voice { font-size: 13px; color: #aaa; padding: 20px; text-align: center; }
+
+  /* Jinst tugmalari */
+  .gender-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .gender-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; cursor: pointer; background: #fafafa; transition: all .15s; font-family: Arial, sans-serif; text-align: center; }
+  .gender-btn:hover { background: #f0f0f0; }
+  .gender-btn.female-active { background: #fce8f3; border-color: #d063a0; color: #a01a6e; font-weight: 700; }
+  .gender-btn.male-active { background: #e8f0fe; border-color: #4a7fd4; color: #1a56a0; font-weight: 700; }
+
+  /* TTS ga yuborish modal */
+  .tts-send-card { background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; padding: 14px; margin-top: 12px; display: none; }
+  .tts-send-title { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+  .selected-voice-info { font-size: 13px; color: #444; margin-top: 8px; min-height: 18px; }
+  .selected-voice-info span { font-weight: 700; }
 
   @media (prefers-color-scheme: dark) {
     body { background: #1a1a1a; color: #eee; }
     .card { background: #252525; border-color: #333; }
-    .tab.active { background: #333; color: #eee; border-color: #555; }
-    input[type=text], select, textarea, .result-box { background: #2a2a2a; color: #eee; border-color: #444; }
+    .tab { color: #aaa; border-color: #444; }
+    .tab.active { background: #333; color: #eee; border-color: #666; box-shadow: none; }
+    input[type=text], textarea, .result-box { background: #2a2a2a; color: #eee; border-color: #444; }
+    input[type=text]:focus, textarea:focus { background: #333; border-color: #666; }
     button { background: #2a2a2a; color: #eee; border-color: #444; }
     button:hover { background: #333; }
-    .btn-primary { background: #333; border-color: #555; }
+    .btn-primary { background: #eee; color: #111; border-color: #eee; }
+    .btn-primary:hover { background: #ccc; }
+    .lang-btn { background: #2a2a2a; color: #aaa; border-color: #444; }
+    .lang-btn.active { background: #eee; color: #111; border-color: #eee; }
+    .voice-card { background: #2a2a2a; border-color: #444; color: #eee; }
+    .voice-card:hover { background: #333; border-color: #666; }
+    .voice-card.selected { background: #eee; color: #111; border-color: #eee; }
+    .voice-card.selected .vc-lang { color: #555; }
+    .vc-lang { color: #888; }
+    .gender-btn { background: #2a2a2a; color: #eee; border-color: #444; }
+    .tts-send-card { background: #2a2a2a; border-color: #444; }
+    .selected-voice-info { color: #ccc; }
+  }
+
+  @media (max-width: 480px) {
+    .voice-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -62,14 +112,20 @@
     <button class="tab" onclick="switchTab('stt')">Ovoz → Matn</button>
   </div>
 
-  <!-- TTS PANEL -->
+  <!-- TTS -->
   <div id="tts" class="panel active">
     <div class="card">
+      <div class="label">Til tanlang</div>
+      <div class="lang-btns">
+        <button class="lang-btn active" onclick="filterLang('all', this)">Barchasi</button>
+        <button class="lang-btn" onclick="filterLang('uz', this)">O'zbek</button>
+        <button class="lang-btn" onclick="filterLang('ru', this)">Rus</button>
+        <button class="lang-btn" onclick="filterLang('en', this)">Ingliz</button>
+      </div>
       <div class="label">Ovoz qidirish</div>
-      <input type="text" id="search" placeholder="Til yoki ovoz nomi... (uz, en, ru, ar...)" oninput="filterVoices()">
-      <div class="voice-count" id="vcount">Ovozlar yuklanmoqda...</div>
-      <div class="label">Ovoz tanlang</div>
-      <select id="voiceSelect" size="6" style="min-height:120px"></select>
+      <input type="text" id="search" placeholder="Ovoz nomi yoki til kodi (uz-UZ, en-US, ru-RU...)" oninput="renderFiltered()">
+      <div class="voice-count" id="vcount">Yuklanmoqda...</div>
+      <div class="voice-grid" id="voiceGrid"></div>
     </div>
 
     <div class="card">
@@ -100,7 +156,7 @@
     </div>
   </div>
 
-  <!-- STT PANEL -->
+  <!-- STT -->
   <div id="stt" class="panel">
     <div class="card">
       <div class="label">Nutqni matnga o'girish</div>
@@ -112,11 +168,42 @@
         <button class="btn-danger" onclick="stopRec()" id="stopBtn" style="display:none">⏹ To'xtatish</button>
       </div>
       <div class="status" id="sttStatus"></div>
+
       <div class="label" style="margin-top:14px">Natija</div>
       <div class="result-box" id="resultBox"></div>
-      <div class="btn-row" id="copyRow" style="display:none;margin-top:8px">
+
+      <!-- TTS ga yuborish qismi -->
+      <div class="tts-send-card" id="ttsSendCard">
+        <div class="tts-send-title">TTS ga yuborish — Ovoz tanlang</div>
+
+        <div class="label">Jins</div>
+        <div class="gender-row">
+          <button class="gender-btn" id="femaleBtn" onclick="selectGender('female')">
+            👩 Ayol ovozi
+          </button>
+          <button class="gender-btn" id="maleBtn" onclick="selectGender('male')">
+            👨 Erkak ovozi
+          </button>
+        </div>
+
+        <div class="label">Til</div>
+        <div class="lang-btns" id="sttLangBtns">
+          <button class="lang-btn active" onclick="filterSttLang('uz', this)">O'zbek</button>
+          <button class="lang-btn" onclick="filterSttLang('ru', this)">Rus</button>
+          <button class="lang-btn" onclick="filterSttLang('en', this)">Ingliz</button>
+        </div>
+
+        <div class="selected-voice-info" id="selectedVoiceInfo">Jins va til tanlang</div>
+
+        <div class="btn-row" style="margin-top:10px">
+          <button class="btn-primary" onclick="sendToTTSWithVoice()">▶ O'qib ber</button>
+          <button onclick="sendToTTSEdit()">TTS sahifaga yuborish</button>
+        </div>
+      </div>
+
+      <div class="btn-row" id="copyRow" style="display:none;margin-top:10px">
         <button onclick="copyText()">Nusxa olish</button>
-        <button onclick="sendToTTS()">TTS ga yuborish</button>
+        <button onclick="showTTSSend()">🔊 Ovozga o'girish</button>
         <button onclick="clearSTT()">Tozala</button>
       </div>
     </div>
@@ -125,63 +212,101 @@
 
 <script>
   let allVoices = [];
+  let selectedVoice = null;
+  let currentLang = 'all';
   let recognition = null;
   let isRecording = false;
   let fullTranscript = '';
+  let sttGender = null;
+  let sttLang = 'uz';
+
+  const GENDER_KEYWORDS = {
+    female: ['female','woman','girl','zira','hazel','susan','linda','emma','aria','jenny',
+             'sonia','elsa','anna','natasha','svetlana','dariya','irina','madina',
+             'nova','shimmer','alloy'],
+    male:   ['male','man','guy','david','mark','james','ryan','liam','eric','roger',
+             'william','dmitry','alexey','sardor','onyx','echo','fable']
+  };
+
+  function guessGender(voice) {
+    const n = voice.name.toLowerCase();
+    for (const kw of GENDER_KEYWORDS.female) if (n.includes(kw)) return 'female';
+    for (const kw of GENDER_KEYWORDS.male)   if (n.includes(kw)) return 'male';
+    return 'unknown';
+  }
 
   function loadVoices() {
     allVoices = speechSynthesis.getVoices();
-    renderVoices(allVoices);
-    document.getElementById('vcount').textContent = allVoices.length + ' ta ovoz topildi';
+    if (!allVoices.length) return;
+    renderFiltered();
   }
 
-  function renderVoices(list) {
-    const sel = document.getElementById('voiceSelect');
-    sel.innerHTML = '';
+  function getFiltered() {
+    const q = document.getElementById('search').value.toLowerCase().trim();
+    return allVoices.filter(v => {
+      const lang = v.lang.toLowerCase();
+      const name = v.name.toLowerCase();
+      const langMatch =
+        currentLang === 'all' ? true :
+        currentLang === 'uz'  ? lang.startsWith('uz') :
+        currentLang === 'ru'  ? lang.startsWith('ru') :
+        currentLang === 'en'  ? lang.startsWith('en') : true;
+      const qMatch = !q || name.includes(q) || lang.includes(q);
+      return langMatch && qMatch;
+    });
+  }
+
+  function renderFiltered() {
+    const list = getFiltered();
+    const grid = document.getElementById('voiceGrid');
+    document.getElementById('vcount').textContent = list.length + ' ta ovoz';
     if (!list.length) {
-      sel.innerHTML = '<option>Ovoz topilmadi</option>';
+      grid.innerHTML = '<div class="no-voice">Ovoz topilmadi</div>';
       return;
     }
-    list.forEach((v, i) => {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = v.name + ' — ' + v.lang;
-      if (v.default) opt.selected = true;
-      sel.appendChild(opt);
-    });
-    document.getElementById('vcount').textContent = list.length + ' ta ovoz';
+    grid.innerHTML = list.map(v => {
+      const gender = guessGender(v);
+      const genderLabel = gender === 'female' ? '<span class="vc-gender female">Ayol</span>'
+                        : gender === 'male'   ? '<span class="vc-gender male">Erkak</span>'
+                        : '';
+      const isSel = selectedVoice && v.name === selectedVoice.name;
+      const idx = allVoices.indexOf(v);
+      return `<div class="voice-card${isSel ? ' selected' : ''}" onclick="selectVoice(${idx}, this)">
+        <div class="vc-name">${v.name}</div>
+        <div class="vc-lang">${v.lang}</div>
+        ${genderLabel}
+      </div>`;
+    }).join('');
   }
 
-  function filterVoices() {
-    const q = document.getElementById('search').value.toLowerCase();
-    const filtered = allVoices.filter(v =>
-      v.name.toLowerCase().includes(q) || v.lang.toLowerCase().includes(q)
-    );
-    renderVoices(filtered);
+  function selectVoice(idx, el) {
+    selectedVoice = allVoices[idx];
+    document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function filterLang(lang, btn) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderFiltered();
   }
 
   speechSynthesis.onvoiceschanged = loadVoices;
   loadVoices();
 
-  function getSelectedVoice() {
-    const sel = document.getElementById('voiceSelect');
-    const q = document.getElementById('search').value.toLowerCase();
-    const filtered = q
-      ? allVoices.filter(v => v.name.toLowerCase().includes(q) || v.lang.toLowerCase().includes(q))
-      : allVoices;
-    return filtered[sel.selectedIndex] || allVoices[0];
-  }
-
   function speak() {
     const text = document.getElementById('ttsText').value.trim();
     if (!text) { setStatus('ttsStatus', 'Matn kiriting!', 'err'); return; }
+    if (!selectedVoice && allVoices.length) selectedVoice = getFiltered()[0] || allVoices[0];
+    if (!selectedVoice) { setStatus('ttsStatus', 'Ovoz tanlanmadi!', 'err'); return; }
     speechSynthesis.cancel();
     const utt = new SpeechSynthesisUtterance(text);
-    utt.voice = getSelectedVoice();
-    utt.rate = parseFloat(document.getElementById('rate').value);
+    utt.voice = selectedVoice;
+    utt.rate  = parseFloat(document.getElementById('rate').value);
     utt.pitch = parseFloat(document.getElementById('pitch').value);
-    utt.onstart = () => setStatus('ttsStatus', 'O\'qilmoqda...', '');
-    utt.onend = () => setStatus('ttsStatus', 'Tugadi!', 'ok');
+    utt.onstart = () => setStatus('ttsStatus', 'O\'qilmoqda: ' + selectedVoice.name, '');
+    utt.onend   = () => setStatus('ttsStatus', 'Tugadi!', 'ok');
     utt.onerror = () => setStatus('ttsStatus', 'Xatolik yuz berdi', 'err');
     speechSynthesis.speak(utt);
   }
@@ -196,6 +321,7 @@
     setStatus('ttsStatus', '', '');
   }
 
+  // STT
   function startRec() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) { setStatus('sttStatus', 'Brauzeringiz qo\'llab-quvvatlamaydi', 'err'); return; }
@@ -211,8 +337,7 @@
       setStatus('sttStatus', '<span class="rec-dot"></span>Yozilmoqda...', '');
     };
     recognition.onresult = (e) => {
-      let interim = '';
-      let final = '';
+      let final = '', interim = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
         if (e.results[i].isFinal) final += e.results[i][0].transcript;
         else interim += e.results[i][0].transcript;
@@ -221,7 +346,7 @@
       showResult((fullTranscript + interim).trim());
     };
     recognition.onerror = (e) => setStatus('sttStatus', 'Xatolik: ' + e.error, 'err');
-    recognition.onend = () => { if (isRecording) recognition.start(); };
+    recognition.onend   = () => { if (isRecording) recognition.start(); };
     recognition.start();
   }
 
@@ -241,11 +366,77 @@
     document.getElementById('copyRow').style.display = 'flex';
   }
 
+  // TTS ga yuborish
+  function showTTSSend() {
+    const card = document.getElementById('ttsSendCard');
+    card.style.display = card.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function selectGender(gender) {
+    sttGender = gender;
+    document.getElementById('femaleBtn').className = 'gender-btn' + (gender === 'female' ? ' female-active' : '');
+    document.getElementById('maleBtn').className   = 'gender-btn' + (gender === 'male'   ? ' male-active'   : '');
+    updateSelectedVoiceInfo();
+  }
+
+  function filterSttLang(lang, btn) {
+    sttLang = lang;
+    document.querySelectorAll('#sttLangBtns .lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updateSelectedVoiceInfo();
+  }
+
+  function findVoiceByGenderLang() {
+    if (!sttGender) return null;
+    const candidates = allVoices.filter(v => {
+      const langMatch = v.lang.toLowerCase().startsWith(sttLang);
+      const genderMatch = guessGender(v) === sttGender;
+      return langMatch && genderMatch;
+    });
+    return candidates[0] || null;
+  }
+
+  function updateSelectedVoiceInfo() {
+    const info = document.getElementById('selectedVoiceInfo');
+    const v = findVoiceByGenderLang();
+    if (!sttGender) {
+      info.innerHTML = 'Jins tanlang';
+      return;
+    }
+    if (v) {
+      const gLabel = sttGender === 'female' ? '👩 Ayol' : '👨 Erkak';
+      info.innerHTML = `${gLabel}: <span>${v.name}</span> (${v.lang})`;
+    } else {
+      info.innerHTML = '<span style="color:#c0392b">Bu til uchun ovoz topilmadi</span>';
+    }
+  }
+
+  function sendToTTSWithVoice() {
+    const v = findVoiceByGenderLang();
+    if (!v) { alert('Ovoz topilmadi! Boshqa til tanlang.'); return; }
+    if (!fullTranscript.trim()) { alert('Matn yo\'q!'); return; }
+    speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(fullTranscript);
+    utt.voice = v;
+    utt.rate  = 1;
+    utt.pitch = 1;
+    utt.onstart = () => setStatus('sttStatus', 'O\'qilmoqda: ' + v.name, 'ok');
+    utt.onend   = () => setStatus('sttStatus', 'Tugadi!', 'ok');
+    speechSynthesis.speak(utt);
+  }
+
+  function sendToTTSEdit() {
+    document.getElementById('ttsText').value = fullTranscript;
+    if (findVoiceByGenderLang()) selectedVoice = findVoiceByGenderLang();
+    switchTab('tts');
+  }
+
   function clearSTT() {
     fullTranscript = '';
     document.getElementById('resultBox').style.display = 'none';
     document.getElementById('resultBox').textContent = '';
     document.getElementById('copyRow').style.display = 'none';
+    document.getElementById('ttsSendCard').style.display = 'none';
     setStatus('sttStatus', '', '');
   }
 
@@ -254,15 +445,9 @@
       .then(() => setStatus('sttStatus', 'Nusxa olindi!', 'ok'));
   }
 
-  function sendToTTS() {
-    document.getElementById('ttsText').value = fullTranscript;
-    switchTab('tts');
-  }
-
   function switchTab(name) {
     document.querySelectorAll('.tab').forEach((t, i) =>
-      t.classList.toggle('active', ['tts','stt'][i] === name)
-    );
+      t.classList.toggle('active', ['tts','stt'][i] === name));
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.getElementById(name).classList.add('active');
   }
