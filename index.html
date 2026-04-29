@@ -1,94 +1,277 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <title>Matn o'quvchi</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        button:hover { background: #45a049; }
-        select {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ovoz Studiyasi</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; color: #222; min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1rem; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+  .tab { padding: 8px 20px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; background: transparent; color: #666; transition: all .15s; }
+  .tab.active { background: #fff; color: #111; border-color: #999; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+  .label { font-size: 11px; color: #888; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  input[type=text] { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; margin-bottom: 10px; outline: none; }
+  input[type=text]:focus { border-color: #999; }
+  select { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; margin-bottom: 10px; outline: none; }
+  textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #222; font-size: 14px; resize: vertical; min-height: 110px; font-family: Arial, sans-serif; outline: none; }
+  textarea:focus, select:focus { border-color: #999; }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  button { padding: 9px 20px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; cursor: pointer; background: #fff; color: #222; transition: all .15s; font-family: Arial, sans-serif; }
+  button:hover { background: #f0f0f0; }
+  button:active { transform: scale(0.98); }
+  .btn-primary { background: #f0f0f0; font-weight: 600; border-color: #bbb; }
+  .btn-danger { color: #c0392b; border-color: #e0b0b0; }
+  .btn-danger:hover { background: #fff0f0; }
+  .status { font-size: 13px; color: #888; margin-top: 10px; min-height: 20px; }
+  .status.ok { color: #27ae60; }
+  .status.err { color: #c0392b; }
+  .voice-count { font-size: 12px; color: #aaa; margin-bottom: 8px; }
+  .result-box { background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; font-size: 14px; color: #222; min-height: 60px; line-height: 1.6; white-space: pre-wrap; margin-top: 10px; display: none; }
+  .rec-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; margin-right: 6px; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .range-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .range-row label { font-size: 13px; color: #666; min-width: 60px; }
+  .range-row input { flex: 1; }
+  .range-row span { font-size: 13px; font-weight: 600; min-width: 35px; text-align: right; }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #eee; }
+    .card { background: #252525; border-color: #333; }
+    .tab.active { background: #333; color: #eee; border-color: #555; }
+    input[type=text], select, textarea, .result-box { background: #2a2a2a; color: #eee; border-color: #444; }
+    button { background: #2a2a2a; color: #eee; border-color: #444; }
+    button:hover { background: #333; }
+    .btn-primary { background: #333; border-color: #555; }
+  }
+</style>
 </head>
 <body>
-    <h2>🎙️ Matn o'quvchi</h2>
+<div class="wrap">
+  <h1>🎙️ Ovoz Studiyasi</h1>
+  <p class="sub">Matnni ovozga va ovozni matnga o'giruvchi dastur</p>
 
-    <select id="ovoz"></select>
-    <textarea id="matn" placeholder="Matn kiriting..."></textarea>
-    <br>
-    <button onclick="gapir()">▶ O'qib ber</button>
-    <button onclick="toxtat()" style="background:#e74c3c;">⏹ To'xtat</button>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('tts')">Matn → Ovoz</button>
+    <button class="tab" onclick="switchTab('stt')">Ovoz → Matn</button>
+  </div>
 
-    <script>
-        // Ovozlarni yuklash
-        function ovozlarniYukla() {
-            const select = document.getElementById("ovoz");
-            const ovozlar = speechSynthesis.getVoices();
-            select.innerHTML = "";
-            ovozlar.forEach((ovoz, i) => {
-                const option = document.createElement("option");
-                option.value = i;
-                option.textContent = `${ovoz.name} (${ovoz.lang})`;
-                select.appendChild(option);
-            });
-        }
+  <!-- TTS PANEL -->
+  <div id="tts" class="panel active">
+    <div class="card">
+      <div class="label">Ovoz qidirish</div>
+      <input type="text" id="search" placeholder="Til yoki ovoz nomi... (uz, en, ru, ar...)" oninput="filterVoices()">
+      <div class="voice-count" id="vcount">Ovozlar yuklanmoqda...</div>
+      <div class="label">Ovoz tanlang</div>
+      <select id="voiceSelect" size="6" style="min-height:120px"></select>
+    </div>
 
-        speechSynthesis.onvoiceschanged = ovozlarniYukla;
-        ovozlarniYukla();
+    <div class="card">
+      <div class="label">Sozlamalar</div>
+      <div class="range-row">
+        <label>Tezlik</label>
+        <input type="range" min="0.5" max="2" step="0.1" value="1" id="rate"
+          oninput="document.getElementById('rateVal').textContent=parseFloat(this.value).toFixed(1)">
+        <span id="rateVal">1.0</span>
+      </div>
+      <div class="range-row">
+        <label>Balandlik</label>
+        <input type="range" min="0" max="2" step="0.1" value="1" id="pitch"
+          oninput="document.getElementById('pitchVal').textContent=parseFloat(this.value).toFixed(1)">
+        <span id="pitchVal">1.0</span>
+      </div>
+    </div>
 
-        function gapir() {
-            const matn = document.getElementById("matn").value;
-            const ovozIndex = document.getElementById("ovoz").value;
-            const ovozlar = speechSynthesis.getVoices();
+    <div class="card">
+      <div class="label">Matn kiriting</div>
+      <textarea id="ttsText" placeholder="Bu yerga matn kiriting..."></textarea>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="speak()">▶ O'qib ber</button>
+        <button class="btn-danger" onclick="stopSpeak()">⏹ To'xtat</button>
+        <button onclick="clearTTS()">Tozala</button>
+      </div>
+      <div class="status" id="ttsStatus"></div>
+    </div>
+  </div>
 
-            if (!matn.trim()) {
-                alert("Matn kiriting!");
-                return;
-            }
+  <!-- STT PANEL -->
+  <div id="stt" class="panel">
+    <div class="card">
+      <div class="label">Nutqni matnga o'girish</div>
+      <p style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.6">
+        Mikrofon tugmasini bosib gapiring. Brauzer nutqingizni matnga o'giradi.
+      </p>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="startRec()" id="recBtn">🎤 Yozishni boshlash</button>
+        <button class="btn-danger" onclick="stopRec()" id="stopBtn" style="display:none">⏹ To'xtatish</button>
+      </div>
+      <div class="status" id="sttStatus"></div>
+      <div class="label" style="margin-top:14px">Natija</div>
+      <div class="result-box" id="resultBox"></div>
+      <div class="btn-row" id="copyRow" style="display:none;margin-top:8px">
+        <button onclick="copyText()">Nusxa olish</button>
+        <button onclick="sendToTTS()">TTS ga yuborish</button>
+        <button onclick="clearSTT()">Tozala</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-            speechSynthesis.cancel();
+<script>
+  let allVoices = [];
+  let recognition = null;
+  let isRecording = false;
+  let fullTranscript = '';
 
-            const gap = new SpeechSynthesisUtterance(matn);
-            gap.voice = ovozlar[ovozIndex];
-            gap.rate = 1;    // tezlik
-            gap.pitch = 1;   // ovoz toni
-            gap.volume = 1;  // balandlik
+  function loadVoices() {
+    allVoices = speechSynthesis.getVoices();
+    renderVoices(allVoices);
+    document.getElementById('vcount').textContent = allVoices.length + ' ta ovoz topildi';
+  }
 
-            speechSynthesis.speak(gap);
-        }
+  function renderVoices(list) {
+    const sel = document.getElementById('voiceSelect');
+    sel.innerHTML = '';
+    if (!list.length) {
+      sel.innerHTML = '<option>Ovoz topilmadi</option>';
+      return;
+    }
+    list.forEach((v, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = v.name + ' — ' + v.lang;
+      if (v.default) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    document.getElementById('vcount').textContent = list.length + ' ta ovoz';
+  }
 
-        function toxtat() {
-            speechSynthesis.cancel();
-        }
-    </script>
+  function filterVoices() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const filtered = allVoices.filter(v =>
+      v.name.toLowerCase().includes(q) || v.lang.toLowerCase().includes(q)
+    );
+    renderVoices(filtered);
+  }
+
+  speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+
+  function getSelectedVoice() {
+    const sel = document.getElementById('voiceSelect');
+    const q = document.getElementById('search').value.toLowerCase();
+    const filtered = q
+      ? allVoices.filter(v => v.name.toLowerCase().includes(q) || v.lang.toLowerCase().includes(q))
+      : allVoices;
+    return filtered[sel.selectedIndex] || allVoices[0];
+  }
+
+  function speak() {
+    const text = document.getElementById('ttsText').value.trim();
+    if (!text) { setStatus('ttsStatus', 'Matn kiriting!', 'err'); return; }
+    speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.voice = getSelectedVoice();
+    utt.rate = parseFloat(document.getElementById('rate').value);
+    utt.pitch = parseFloat(document.getElementById('pitch').value);
+    utt.onstart = () => setStatus('ttsStatus', 'O\'qilmoqda...', '');
+    utt.onend = () => setStatus('ttsStatus', 'Tugadi!', 'ok');
+    utt.onerror = () => setStatus('ttsStatus', 'Xatolik yuz berdi', 'err');
+    speechSynthesis.speak(utt);
+  }
+
+  function stopSpeak() {
+    speechSynthesis.cancel();
+    setStatus('ttsStatus', 'To\'xtatildi', '');
+  }
+
+  function clearTTS() {
+    document.getElementById('ttsText').value = '';
+    setStatus('ttsStatus', '', '');
+  }
+
+  function startRec() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { setStatus('sttStatus', 'Brauzeringiz qo\'llab-quvvatlamaydi', 'err'); return; }
+    fullTranscript = '';
+    recognition = new SR();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'uz-UZ';
+    recognition.onstart = () => {
+      isRecording = true;
+      document.getElementById('recBtn').style.display = 'none';
+      document.getElementById('stopBtn').style.display = 'inline-block';
+      setStatus('sttStatus', '<span class="rec-dot"></span>Yozilmoqda...', '');
+    };
+    recognition.onresult = (e) => {
+      let interim = '';
+      let final = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) final += e.results[i][0].transcript;
+        else interim += e.results[i][0].transcript;
+      }
+      fullTranscript += final;
+      showResult((fullTranscript + interim).trim());
+    };
+    recognition.onerror = (e) => setStatus('sttStatus', 'Xatolik: ' + e.error, 'err');
+    recognition.onend = () => { if (isRecording) recognition.start(); };
+    recognition.start();
+  }
+
+  function stopRec() {
+    isRecording = false;
+    if (recognition) recognition.stop();
+    document.getElementById('recBtn').style.display = 'inline-block';
+    document.getElementById('stopBtn').style.display = 'none';
+    setStatus('sttStatus', 'Tayyor!', 'ok');
+    if (fullTranscript) document.getElementById('copyRow').style.display = 'flex';
+  }
+
+  function showResult(text) {
+    const box = document.getElementById('resultBox');
+    box.style.display = 'block';
+    box.textContent = text;
+    document.getElementById('copyRow').style.display = 'flex';
+  }
+
+  function clearSTT() {
+    fullTranscript = '';
+    document.getElementById('resultBox').style.display = 'none';
+    document.getElementById('resultBox').textContent = '';
+    document.getElementById('copyRow').style.display = 'none';
+    setStatus('sttStatus', '', '');
+  }
+
+  function copyText() {
+    navigator.clipboard.writeText(fullTranscript)
+      .then(() => setStatus('sttStatus', 'Nusxa olindi!', 'ok'));
+  }
+
+  function sendToTTS() {
+    document.getElementById('ttsText').value = fullTranscript;
+    switchTab('tts');
+  }
+
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach((t, i) =>
+      t.classList.toggle('active', ['tts','stt'][i] === name)
+    );
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(name).classList.add('active');
+  }
+
+  function setStatus(id, msg, type) {
+    const el = document.getElementById(id);
+    el.innerHTML = msg;
+    el.className = 'status' + (type ? ' ' + type : '');
+  }
+</script>
 </body>
 </html>
