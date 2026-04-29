@@ -1,1 +1,1 @@
-# sterjen_mexanikasi_yangi
+# ovoztomatn
